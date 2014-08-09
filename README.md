@@ -1,8 +1,6 @@
 MiscMerge
 =========
 
-# The MiscMergeKit
-
 ## Introduction
 
 
