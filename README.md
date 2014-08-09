@@ -39,11 +39,11 @@ If you need to actually modify the merge language, it is possible to do so.  Th
 
 The merge language is quite simple.  Two delimiters are used to tell the template parser when a merge command begins and ends.  By default, commands are expected to be enclosed in pairs of `«` and `»`, but you can change this to brackets (`{` and `}`), double arrows (`<<` and `>>`), or any other pair of arbitrary-length strings.  The same string can be used as the opening and closing delimiter, though this defeats the delayed-parse feature (not necessarily a bad thing).  The first word after the opening delimiter is used as the command name.  It is used to look up a command class.  If the class is not found, then the word is taken to be a key of the data object and the merge command will substitute the value returned by the object for the merge command on the output.  So the simplest example would be:
 
-**	Template:**
+**Template:**
 
     This is a sample template for {name}.
 
-**	Dictionary:**
+**Dictionary:**
 
 	name = "Don Yacktman"
 
@@ -53,24 +53,24 @@ Since there is no `name` command, the value of the key `name` will be substitute
 
 When searching for keys, the MiscMergeEngine can be configured to resolve the values as far as it can, though this is off by default since it can cause some unexpected problems.  So, for example, one value in the object could be another object in the dictionary--causing an indirection to take place.  If keys aren't found in the data object, an engine-specific dictionary is consulted, and then a global dictionary.  If still not found, then the key is returned as a literal value to be inserted into the template.  Here are some examples:
 
-**	Template:**
+**Template:**
 
 	This is a sample template for <#name#>.
 
-**	Dictionary:**
+**Dictionary:**
 
 	<empty>
 
-**	Output:**
+**Output:**
 
 	This is a sample template for name.
 
-**	Dictionary:**
+**Dictionary:**
 
 	name = "fullName"
 	fullName = "Don Yacktman"
 
-**	Output:**
+**Output:**
 
 	This is a sample template for Don Yacktman.
 
@@ -155,15 +155,15 @@ The text following the keyword `field` is parsed and processed as a full express
 
 These commands implement a loop.  The `foreach` command requires three parameters.  The first parameter is a variable name to be used as an iterator.  Each time through the loop, this variable will take on a new value.  A variable using the same name but with "Index" appended is also available in the context of the loop, and will contain the current loop iteration number (starting with 0).  When the second item evaluates as a NSDictionary, an additional name with with "Key" appended is also available in the context of the loop, and will contain the key that the item value was found at.  The second parameter is the name of a variable which contains an instance of the NSArray or NSDictionary class (or one of their subclasses).  The final parameter is a special tag.  The `endforeach` command can take a single parameter, again a tag.  The tags for each set of matching `foreach`/`endforeach` commands are expected to match.  If they do not, then the template is assumed to be incorrectly constructed and the merge is aborted with an error message.  If the array is empty, then no iterations are performed and nothing appears in the output.
 
-**	Template:**
+**Template:**
 
 	<tr>[foreach value theRow row1]<td>[value],[valueIndex]</td>[endforeach row1]</tr>
 
-**	Dictionary:**
+**Dictionary:**
 
 	theRow = ("5", "10", "20", "30")
 
-**	Output:**
+**Output:**
 
 	<tr><td>5,0</td><td>10,1</td><td>20,2</td><td>30,3</td></tr>
 
@@ -175,25 +175,25 @@ These commands implement a loop.  The `foreach` command requires three paramete
 
 These four commands allow conditional text output with a merge.  Here would be a way to print out a different string of text based upon the value of the key `salary`:
 
-**	Template:**
+**Template:**
 
 	Congratulations!  You qualify for our offer for a free
 	Visa [$if salary > 35000$]Gold[$else$]Classic[$endif$] card!
 
-**	Dictionary:**
+**Dictionary:**
 
 	salary = "20000"
 
-**	Output:**
+**Output:**
 
 	Congratulations!  You qualify for our offer for a free
 	Visa Classic card!
 
-**	Dictionary:**
+**Dictionary:**
 
 	salary = "40000"
 
-**	Output:**
+**Output:**
 
 	Congratulations!  You qualify for our offer for a free
 	Visa Gold card!
@@ -217,15 +217,15 @@ This allows an external template file to be inlined into the current template. 
 
 If one of the dictionary values is actually an instance of NSArray or one of its subclasses, then this command can be used to access a single value from the array.  Two parameters are required.  The first is the variable name and the second is the index (starting with zero) of the string to use.  As an example:
 
-**	Template:**
+**Template:**
 
 	Please hand me that $$index theList 1$$.
 
-**	Dictionary:**
+**Dictionary:**
 
 	theList = ("apple", "bananna", "orange")
 
-**	Output:**
+**Output:**
 
 	Please hand me that bananna.
 
@@ -234,15 +234,15 @@ If one of the dictionary values is actually an instance of NSArray or one of its
 
 These commands implement a loop.  The `loop` command requires four parameters and an optional fifth.  The first parameter is a variable name to be used as an iterator.  Each time through the loop, this variable will take on a new value.  The second parameter is a start value, while the third parameter is an end value.  The fourth parameter is a step value.  The second, third, and fourth parameters are all integers; no floating point math is supported.  The final parameter is a special tag.  The `endloop` command takes a single parameter, again a tag.  The tags for each set of matching `loop / endloop` commands are expected to match.  If they do not, then the template is assumed to be incorrectly constructed and the merge is aborted with an error message.
 
-**	Template:**
+**Template:**
 
 	He ate {loop value 10 50 10 loop1}{value} {endloop loop1 }times.
 
-**	Dictionary:**
+**Dictionary:**
 
 	<empty>
 
-**	Output:**
+**Output:**
 
 	He ate 10 20 30 40 50 times.
 
