@@ -369,31 +369,31 @@ Note how while there is one newline before the if statement, no newline is outpu
 
 This option is used to determine how MiscMerge handles a failure to lookup a key path.  MiscMerge will attempt to determine if the first part of a key path exists in one of the contexts that it resolves.  If the key path is a complex multi-part path, the first portion is still the only portion that is evaluated. Consider:
 
-**	Template:**
+**Template:**
 
 	'{user} {user.name}'
 
-**	Dictionary:**
+**Dictionary:**
 
 	<empty>
 
-**	Output:**
+**Output:**
 
 	user user.name
 
-**	Dictionary:**
+**Dictionary:**
 
 	user = {};
 
-**	Output:**
+**Output:**
 
 	'{} '
 
-**	Dictionary:**
+**Dictionary:**
 
 	user = nil; <- This must come from a Objective-C method
 
-**	Output:**
+**Output:**
 
 	' '
 
@@ -401,16 +401,16 @@ Normally, if the first part of the path is found, whatever the full key path ret
 
 However, in the case of procedure calls, this can cause some unexpected behavior.  For example:
 
-**	Template:**
+**Template:**
 
 	{procedure printorblank item}{if item ne `}{item}{else}isBlank{endif}{endprocedure}
 	'{call printorblank user} {call printorblank user.name}'
 
-**	Dictionary:**
+**Dictionary:**
 
 	<empty>
 
-**	Output:**
+**Output:**
 
 	'user isBlank'
 
