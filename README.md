@@ -1,6 +1,9 @@
 MiscMerge
 =========
 
+MiscMerge is the templating language used by [mogenerator](https://github.com/rentzsch/mogenerator). I couldn't find the documentation online anywhere so I pulled it from the mogenerator repo in RTF format and converted it to Markdown. Any errors in the below were likely caused by me during the conversion.
+
+
 ## Introduction
 
 
